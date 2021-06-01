@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import RandomBtn from './components/RandomBtn';
 import RandomQuote from './components/RandomQuote';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   return (
     <div className="App">
      { quote.length > 0 && <RandomQuote result={quote} />}
+     <RandomBtn whenClick={fetchDataQuote}/>
     </div>
   );
 }
