@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
+import RandomQuote from './components/RandomQuote';
 
 function App() {
+  const [quote, setQuote] = useState([])
+
+  useEffect(() => {
+    fetchDataQuote();
+  }, []);
+
+  const fetchDataQuote = async () => {
+    const quote = await fetch('http://localhost:5000/quotes/random');
+    const res = await quote.json();
+    const result = Object.values(res)
+    setQuote(result);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     { quote.length > 0 && <RandomQuote result={quote} />}
     </div>
   );
 }
